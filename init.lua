@@ -73,7 +73,7 @@ require('lazy').setup({
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
-
+  'ledger/vim-ledger',
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
   {
@@ -401,6 +401,19 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous dia
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
+-- Ledger
+vim.g.ledger_maxwidth = 120
+vim.g.leger_fold_blanks = 1
+
+vim.keymap.set('n', '<leader>L', function()
+  vim.cmd(":%!ledger -f - print --sort 'date, amount'")
+  vim.cmd(":%LedgerAlign")
+end, { desc = 'Ledger Sort' })
+
+-- vim.keymap.set('n', '<leader>T', function()
+--   vim.call("ledger")
+-- end, { desc = 'Ledger State Toggle' })
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
